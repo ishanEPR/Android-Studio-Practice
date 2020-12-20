@@ -1,5 +1,6 @@
 package com.example.bodimanew;
 
+import android.content.ContentValues;
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -46,5 +47,21 @@ public class  DbHandler extends SQLiteOpenHelper {
         db.execSQL(DROP_TABLE_QUERY);
         //create tables again
         onCreate(db);
+    }
+
+    public void addToDo(ToDo toDo)
+    {
+        SQLiteDatabase sqLiteDatabase=getWritableDatabase();
+
+        ContentValues contentValues=new ContentValues();
+        contentValues.put(title,toDo.getTitle());
+        contentValues.put(description,toDo.getDescription());
+        contentValues.put(started,toDo.getStarted());
+        contentValues.put(finished,toDo.getStarted());
+
+//save to table
+        sqLiteDatabase.insert(TABLE_NAME,null,contentValues);
+        sqLiteDatabase.close();
+
     }
 }
